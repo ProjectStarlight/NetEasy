@@ -73,8 +73,19 @@ namespace NetEasy
 
         internal static void Load(Mod mod)
         {
-            typeModMap = new Dictionary<Type, string>();
-            serializer = new Serializer(Types());
+            if (typeModMap == null)
+            {
+                typeModMap = new Dictionary<Type, string>();
+            }
+
+            if (serializer == null)
+            {
+                serializer = new Serializer(Types());
+            } else
+            {
+                serializer.AddTypes(Types());
+            }
+            
 
             IEnumerable<Type> Types()
             {
